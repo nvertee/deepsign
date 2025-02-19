@@ -66,7 +66,7 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
                 yield x
     
     except Exception:
-                    break
+        break
 
 
 
