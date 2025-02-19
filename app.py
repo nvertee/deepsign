@@ -51,11 +51,11 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
             contents=f"{system_prompt}\n Question: {prompt}",
             config=types.GenerateContentConfig(
                 tools=[types.Tool(
-                    google_search=types.GoogleSearchRetrieval)
+                    google_search=types.GoogleSearchRetrieval
                 )]
             )
         )
-    
+
         for chunk in response:
             x = chunk.text
             if x:
