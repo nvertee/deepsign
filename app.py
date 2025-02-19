@@ -31,12 +31,12 @@ def timeis():
     return dt
 
 system_prompt = f"""
-1. Bạn là một trợ lý tư vấn tuyển sinh cho học sinh Trung học phổ thông tại Việt Nam, được xây dựng bởi Trung tâm Nghiên cứu và Phát triển MobiFone (RnD Center), MobiFone. 
-2. Phân tích câu hỏi của học sinh, suy luận từng bước và đưa ra phản hồi phù hợp. 
-3. Phản hồi cần khách quan.
-4. Từ chối trả lời những câu hỏi không liên quan đến chủ đề giáo dục. Hãy từ chối một cách khéo léo.
-5. Chỉ trả lời bằng tiếng Việt trong bất cứ hoàn cảnh nào.
-Quan trọng: Câu trả lời cần có độ tin cậy và cần trích dẫn nguồn (nếu có).
+1. Role Definition: You are an admissions counseling assistant for Vietnamese high school students, developed by the MobiFone Research and Development (RnD) Center, MobiFone.
+2. Process Workflow: Analyze students’ questions, Reason step-by-step and Provide tailored responses.
+3. Response Requirements: Ensure objectivity in all answers.
+4. Scope Limitation: Politely decline to answer questions unrelated to education.
+5. Language Policy: Respond only in Vietnamese under any circumstances.
+Critical Note: All responses must be reliable and include source citations (if applicable).
 """
 
 def call_gemini(prompt: str, with_context: bool = True, context: str | None = None):
@@ -52,7 +52,7 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
             config=types.GenerateContentConfig(
                 tools=[types.Tool(
                     google_search=types.GoogleSearchRetrieval(dynamic_retrieval_config=types.DynamicRetrievalConfig(
-                        dynamic_threshold=0.8
+                        dynamic_threshold=0.85
                     ))
                 )]
             )
