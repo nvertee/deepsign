@@ -246,6 +246,5 @@ async def run():
 
 
 if __name__ == "__main__":
-    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())  # Thêm dòng này
     asyncio.run(run())
 
