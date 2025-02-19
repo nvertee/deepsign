@@ -56,12 +56,12 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
     try:
         response = client.models.generate_content_stream(
             model='gemini-2.0-flash',
-            contents=f"{system_prompt}\n Question: {prompt}",
+            contents=prompt,
             config=types.GenerateContentConfig(
                 tools=[types.Tool(
-                    google_search=types.GoogleSearchRetrieval(
-                        dynamic_retrieval_config=types.DynamicRetrievalConfig(
-                            dynamic_threshold=0.97))
+                    google_search=types.GoogleSearchRetrieval(dynamic_retrieval_config=types.DynamicRetrievalConfig(
+                        dynamic_threshold=0.8
+                    ))
                 )]
             )
         )
