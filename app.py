@@ -47,7 +47,7 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
     last_answer = ""
     response = client.models.generate_content_stream(
         model='gemini-2.0-flash',
-        contents=prompt,
+        contents=f"{system_prompt}\n {prompt}",
         config=types.GenerateContentConfig(
             tools=[types.Tool(
                 google_search=types.GoogleSearchRetrieval(dynamic_retrieval_config=types.DynamicRetrievalConfig(
