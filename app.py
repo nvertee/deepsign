@@ -48,7 +48,7 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
     try:
         response = client.models.generate_content_stream(
             model='gemini-2.0-flash',
-            contents=f"{system_prompt}\n {prompt}",
+            contents=f"{system_prompt}\n Question: {prompt}",
             config=types.GenerateContentConfig(
                 tools=[types.Tool(
                     google_search=types.GoogleSearchRetrieval(dynamic_retrieval_config=types.DynamicRetrievalConfig(
@@ -250,7 +250,6 @@ async def run():
             status_placeholder.markdown('<p class="reasoning-text">Đang trả lời</p>', unsafe_allow_html=True)
             a = st.write_stream(llm_response)
         status_placeholder.empty()
-        a=st.text_area('Type in the text_area and click copy')
         if st.button('Copy'):
             pyperclip.copy(a)
             st.success('Đã sao chép!')
