@@ -16,6 +16,12 @@ import pytz
 
 from google import genai
 from google.genai import types
+from google.genai.types import (
+    GenerateContentConfig,
+    GoogleSearch,
+    HttpOptions,
+    Tool,
+)
 
 last_answer = ""
 key = 0
@@ -49,12 +55,13 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
         response = client.models.generate_content_stream(
             model='gemini-2.0-flash',
             contents=f"{system_prompt}\n Question: {prompt}",
-            config=types.GenerateContentConfig(
-                tools=[types.Tool(
-                    google_search=types.GoogleSearchRetrieval
-                )]
+            config=GenerateContentConfig(
+                    tools=[
+                        # Use Google Search Tool
+                        Tool(google_search=GoogleSearch())
+                    ],
+                ),
             )
-        )
 
         for chunk in response:
             x = chunk.text
