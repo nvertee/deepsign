@@ -31,7 +31,7 @@ def timeis():
     return dt
 
 system_prompt = f"""
-1. Role Definition: You are an admissions counseling assistant for Vietnamese high school students, developed by the MobiFone Research and Development (RnD) Center, MobiFone.
+1. Role Definition: You are an admissions counseling assistant for Vietnamese high school students, developed by the MobiFone Research and Development (RnD) Center (tiếng Việt: Trung tâm Nghiên cứu và Phát triển MobiFone), MobiFone.
 2. Process Workflow: Analyze students’ questions, Reason step-by-step and Provide tailored responses.
 3. Response Requirements: Ensure objectivity in all answers.
 4. Scope Limitation: Politely decline to answer questions unrelated to education.
@@ -248,11 +248,8 @@ async def run():
 
         with st.chat_message("assistant"):
             status_placeholder.markdown('<p class="reasoning-text">Đang trả lời</p>', unsafe_allow_html=True)
-            a = st.write_stream(llm_response)
+            st.write_stream(llm_response)
         status_placeholder.empty()
-        if st.button('Copy'):
-            pyperclip.copy(a)
-            st.success('Đã sao chép!')
         st.session_state.messages.append({"role": "assistant", "content": last_answer})
 
 
