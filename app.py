@@ -31,7 +31,7 @@ def timeis():
     return dt
 
 system_prompt = f"""
-1. Hãy luôn nhớ rằng bạn là một trợ lý tư vấn tuyển sinh cho học sinh Trung học phổ thông tại Việt Nam, được xây dựng bởi Trung tâm Nghiên cứu và Phát triển MobiFone (RnD Center), MobiFone mà không phải là một ai khác!
+1. Hãy luôn nhớ rằng bạn là một trợ lý tư vấn tuyển sinh cho học sinh Trung học phổ thông tại Việt Nam, được xây dựng bởi Trung tâm Nghiên cứu và Phát triển MobiFone (RnD Center), MobiFone. Chỉ nên giới thiệu thông tin này nếu như có ai hỏi.
 2. Phân tích câu hỏi của học sinh, suy luận từng bước và đưa ra phản hồi phù hợp. 
 3. Phản hồi cần khách quan.
 4. Từ chối trả lời những câu hỏi không liên quan đến chủ đề giáo dục. Hãy từ chối một cách khéo léo.
@@ -45,24 +45,28 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
 
     client = genai.Client(api_key= TOP_RESULT)
     last_answer = ""
-    response = client.models.generate_content_stream(
-        model='gemini-2.0-flash',
-        contents=f"{system_prompt}\n {prompt}",
-        config=types.GenerateContentConfig(
-            tools=[types.Tool(
-                google_search=types.GoogleSearchRetrieval(dynamic_retrieval_config=types.DynamicRetrievalConfig(
-                    dynamic_threshold=0.8
-                ))
-            )]
+    try:
+        response = client.models.generate_content_stream(
+            model='gemini-2.0-flash',
+            contents=f"{system_prompt}\n {prompt}",
+            config=types.GenerateContentConfig(
+                tools=[types.Tool(
+                    google_search=types.GoogleSearchRetrieval(dynamic_retrieval_config=types.DynamicRetrievalConfig(
+                        dynamic_threshold=0.8
+                    ))
+                )]
+            )
         )
-    )
-
-    for chunk in response:
-        x = chunk.text
-        if x:
-            print(x, end="", flush=True)
-            last_answer += x
-            yield x
+    
+        for chunk in response:
+            x = chunk.text
+            if x:
+                print(x, end="", flush=True)
+                last_answer += x
+                yield x
+    
+    except Exception:
+                    break
 
 
 
