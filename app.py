@@ -20,6 +20,10 @@ from google.genai import types
 last_answer = ""
 key = 0
 
+import os
+TOP_RESULT = os.getenv("TOP_RESULT")
+
+
 def timeis():
     tz = pytz.timezone("Asia/Bangkok")
     now = datetime.now(tz)
