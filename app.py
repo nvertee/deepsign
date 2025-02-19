@@ -1,9 +1,7 @@
 """
 LLM App with Web Search
 """
-import re
-import bs4
-from bs4 import BeautifulSoup
+
 from urllib.parse import urljoin
 import requests
 import asyncio
@@ -13,8 +11,6 @@ import requests
 import json
 
 import streamlit as st
-
-from search import *
 from datetime import datetime
 import pytz
 
