@@ -248,8 +248,12 @@ async def run():
 
         with st.chat_message("assistant"):
             status_placeholder.markdown('<p class="reasoning-text">Đang trả lời</p>', unsafe_allow_html=True)
-            st.write_stream(llm_response)
+            a = st.write_stream(llm_response)
         status_placeholder.empty()
+        a=st.text_area('Type in the text_area and click copy')
+        if st.button('Copy'):
+            pyperclip.copy(a)
+            st.success('Đã sao chép!')
         st.session_state.messages.append({"role": "assistant", "content": last_answer})
 
 
