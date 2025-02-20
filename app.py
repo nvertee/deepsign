@@ -70,7 +70,8 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
                 print(x, end="", flush=True)
                 last_answer += x
                 yield x
-    
+        print(response.candidates[0].grounding_metadata.search_entry_point.rendered_content)
+
     except Exception:
         x=1
 
@@ -160,7 +161,6 @@ def call_llm(prompt: str, with_context: bool = True, context: str | None = None)
                                 print(content, end="", flush=True)
                                 last_answer += content
                                 yield(content)
-    print(response.candidates[0].grounding_metadata.search_entry_point.rendered_content)
                 except Exception:
                     break
 
