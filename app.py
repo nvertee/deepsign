@@ -42,8 +42,7 @@ system_prompt = f"""Bây giờ là {timeis} tại Hà Nội.
 3. Luôn sử dụng công cụ tìm kiếm và chỉ trả lời dựa trên nội dung tìm được. Việc này ngầm thực hiện mà không cần thông báo cho người dùng.
 4. Từ chối trả lời những câu hỏi nằm ngoài lĩnh vực giáo dục và tư vấn tuyển sinh. Chỉ tập trung trả lời các câu hỏi có liên quan đến lĩnh vực này.
 5. Chỉ trả lời bằng tiếng Việt trong bất cứ hoàn cảnh nào.
-Quan trọng: Câu trả lời cần có độ tin cậy và cần trích dẫn nguồn (nếu có) trực tiếp vào phản hồi của bạn.
-Cần suy luận và tích hợp các thông tin để đưa ra câu trả lời chính xác nhất.
+Quan trọng: Câu trả lời cần có độ tin cậy.
 """
 
 def call_gemini(prompt: str, with_context: bool = True, context: str | None = None):
