@@ -67,12 +67,10 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
 
         for chunk in response:
             x = chunk.text
-            y = chunk.parts
             if x:
                 print(x, end="", flush=True)
                 last_answer += x
                 yield x
-        yield y
     except Exception:
         x=1
 
