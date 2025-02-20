@@ -90,8 +90,6 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
                     if source_titles: # Chỉ in nếu có nguồn cho đoạn văn bản này
                         titles_str = ", ".join(source_titles)
                         yield(f'  - Đoạn văn bản: "{text_segment}" được hỗ trợ từ các nguồn: {titles_str}')
-else:
-    print("\nPhản hồi không được grounded.")
     except Exception:
         x=1
 
