@@ -58,7 +58,7 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
             config=types.GenerateContentConfig(
                 tools=[types.Tool(
                     google_search=types.GoogleSearchRetrieval(dynamic_retrieval_config=types.DynamicRetrievalConfig(
-                        dynamic_threshold=0.8
+                        dynamic_threshold=1
                     ))
                 )]
             )
