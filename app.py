@@ -55,21 +55,23 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
     client = genai.Client(api_key= TOP_RESULT)
     last_answer = ""
     try:
-        response = client.models.generate_content_stream(
-            model='gemini-2.0-flash',
-            contents=f"{system_prompt}\nTruy vấn: {prompt}",
-            config=GenerateContentConfig(
-                tools=[google_search_tool],
-                response_modalities=["TEXT"],
-            )
-        )
-
-        for chunk in response:
-            x = chunk.text
-            if x:
-                print(x, end="", flush=True)
-                last_answer += x
-                yield x
+        response = model.generate_content(contents="Who won Wimbledon this year?",
+                                  tools='google_search_retrieval')
+        # response = client.models.generate_content_stream(
+        #     model='gemini-2.0-flash',
+        #     contents=f"{system_prompt}\nTruy vấn: {prompt}",
+        #     config=GenerateContentConfig(
+        #         tools=[google_search_tool],
+        #         response_modalities=["TEXT"],
+        #     )
+        # )
+        yield response
+        # for chunk in response:
+        #     x = chunk.text
+        #     if x:
+        #         print(x, end="", flush=True)
+        #         last_answer += x
+        #         yield x
     except Exception:
         x=1
 
