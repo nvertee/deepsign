@@ -63,7 +63,36 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
                 response_modalities=["TEXT"],
             )
         )
-        yield response
+        for chunk in response:
+            x = chunk.text
+            if x:
+                print(x, end="", flush=True)
+                last_answer += x
+                yield x
+            # Tích hợp code lấy title và uri từ grounding chunks vào đây
+                if chunk and chunk.candidates:
+                    candidate = chunk.candidates[0] # Lấy candidate đầu tiên, giả sử có 1 candidate
+                    if candidate.grounding_metadata and candidate.grounding_metadata.grounding_chunks:
+                        grounding_chunks = candidate.grounding_metadata.grounding_chunks
+                        print("\n---Grounding Chunks Info---") # Thêm dấu hiệu để phân biệt output text và grounding info
+                        for grounding_chunk in grounding_chunks:
+                            if grounding_chunk.web:
+                                web_info = grounding_chunk.web
+                                title = web_info.get('title')
+                                uri = web_info.get('uri')
+                                if title and uri: # Kiểm tra để tránh in ra None nếu không có title hoặc uri
+                                    print(f"\n  Title: {title}")
+                                    print(f"  URI: {uri}")
+                        print("---End Grounding Chunks Info---")
+                    else:
+                        print("\n---Grounding Chunks Info---")
+                        print("  No grounding_chunks found in grounding_metadata for this chunk.")
+                        print("---End Grounding Chunks Info---")
+                else:
+                    print("\n---Grounding Chunks Info---")
+                    print("  No candidates found in this chunk.")
+                    print("---End Grounding Chunks Info---")
+
     except Exception:
         x=1
 
