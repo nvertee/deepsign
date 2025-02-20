@@ -71,25 +71,7 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
                 print(x, end="", flush=True)
                 last_answer += x
                 yield x
-        if response.grounding_metadata:
-            yield("\n--- Thông tin nguồn ---")
-            grounding_metadata = response.grounding_metadata
-        
-            if grounding_metadata.grounding_chunks:
-                yield("\n**Nguồn Web:**")
-                for index, chunk in enumerate(grounding_metadata.grounding_chunks):
-                    if chunk.web:
-                        yield(f"  {index + 1}. [{chunk.web.title}]({chunk.web.uri})")
-        
-            if grounding_metadata.grounding_supports:
-                yield("\n**Hỗ trợ nguồn cho các đoạn văn bản:**")
-                for support in grounding_metadata.grounding_supports:
-                    text_segment = support.segment.text
-                    chunk_indices = support.grounding_chunk_indices
-                    source_titles = [grounding_metadata.grounding_chunks[i].web.title for i in chunk_indices if grounding_metadata.grounding_chunks[i].web] # Lọc chunk không có web info
-                    if source_titles: # Chỉ in nếu có nguồn cho đoạn văn bản này
-                        titles_str = ", ".join(source_titles)
-                        yield(f'  - Đoạn văn bản: "{text_segment}" được hỗ trợ từ các nguồn: {titles_str}')
+        yield dir(response)
     except Exception:
         x=1
 
