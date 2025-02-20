@@ -23,6 +23,10 @@ from google.genai.types import (
     Tool,
 )
 
+google_search_tool = Tool(
+    google_search = GoogleSearch()
+)
+
 last_answer = ""
 key = 0
 
@@ -54,12 +58,9 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
         response = client.models.generate_content_stream(
             model='gemini-2.0-flash',
             contents=f"{system_prompt}\nTruy vấn: {prompt}",
-            config=types.GenerateContentConfig(
-                tools=[types.Tool(
-                    google_search=types.GoogleSearchRetrieval(dynamic_retrieval_config=types.DynamicRetrievalConfig(
-                        dynamic_threshold=0
-                    ))
-                )]
+            config=GenerateContentConfig(
+                tools=[google_search_tool],
+                response_modalities=["TEXT"],
             )
         )
 
