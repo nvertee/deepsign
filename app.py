@@ -71,7 +71,7 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
                 print(x, end="", flush=True)
                 last_answer += x
                 yield x
-        yield dir(response)
+        yield str(response)
     except Exception:
         x=1
 
