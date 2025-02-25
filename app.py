@@ -200,7 +200,9 @@ async def run():
     # Tạo sidebar
     st.sidebar.header("Giới thiệu")
     # Nội dung chính của ứng dụng
-    st.sidebar.markdown('<p class="reasoning-text">Hệ thống thử nghiệm</p>', unsafe_allow_html=True)
+    st.sidebar.markdown('<p class="reasoning-text">Hệ thống đang trong quá trình thử nghiệm</p>', unsafe_allow_html=True)
+    st.sidebar.markdown('<p class="reasoning-text">Phiên bản: V2025.1 | RnD Center</p>', unsafe_allow_html=True)
+
     st.markdown(
         """
         <style>
