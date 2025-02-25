@@ -210,7 +210,7 @@ async def run():
             font-size: 16px;
             font-weight: normal;
             color: transparent; /* Ẩn màu chữ gốc */
-            background: linear-gradient(90deg, #c0c0c0 0%, #515151 12.5%, #c0c0c0 25%); /* Dải gradient */
+            background: linear-gradient(90deg, #c0c0c0 0%, #111111 12.5%, #c0c0c0 25%); /* Dải gradient */
             background-size: 200% 100%; /* Tạo không gian cho animation */
             -webkit-background-clip: text;
             background-clip: text;
