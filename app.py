@@ -59,11 +59,11 @@ def call_gemini(prompt: str, with_context: bool = True, context: str | None = No
     try:
         response = client.models.generate_content_stream(
             model='gemini-2.0-flash',
-            contents=f"{system_prompt}\nTruy vấn: {prompt}",
-            config=GenerateContentConfig(
-                tools=[google_search_tool],
-                response_modalities=["TEXT"],
-            )
+            contents=f"{system_prompt}\nTruy vấn: {prompt}"
+            # config=GenerateContentConfig(
+            #     tools=[google_search_tool],
+            #     response_modalities=["TEXT"],
+            # )
         )
         for chunk in response:
             x = chunk.text
